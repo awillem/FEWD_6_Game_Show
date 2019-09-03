@@ -172,6 +172,8 @@ hr {
   border-radius: 5px;
   font-size: var(--font-size-medium);
   font-weight: bold;
+  
+  text-shadow: 3px 3px #ddd;
   transition: all .3s, color .5s;
 }
 
@@ -182,6 +184,8 @@ hr {
 .btn__reset[disabled]:hover,
 .btn__reset[disabled] {
   color: white;
+  
+  text-shadow: none;
   box-shadow: none;
 }
 
