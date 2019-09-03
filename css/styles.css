@@ -137,6 +137,10 @@ hr {
   width: max-content;
 }
 
+#phrase {
+  z-index: 1;
+}
+
 /* Keyboard */
 
 .keyrow {
