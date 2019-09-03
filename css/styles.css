@@ -4,12 +4,12 @@
 /* Variables */
 
 :root {
-  --color-win: #088313;
+  --color-win: #006306;
   --color-lose: #7e0300;
   --color-start: #14787d;
-  --color-neutral: #096064;
+  --color-neutral: #0b7075;
   --color-neutral-light: #ccc;
-  --color-keys: #37474F;
+  --color-keys: rgb(87, 103, 110);
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
   --font-size-medium: 20px;
@@ -28,8 +28,8 @@ body {
   display: flex;
   height: 100vh;
   font-family: 'Rock Salt', cursive;
-  background: linear-gradient(170deg, rgba(150,150,150,.5),rgba(226,88,34, .5) 75%,rgba(206,38,32,.5) 80%, rgba(10,10,10,.9)),
-              linear-gradient(200deg, rgba(150,150,150,.6),rgba(226,88,34, .7) 75%,rgba(206,38,32,.6) 80%, rgba(10,10,10,.9)), 
+  background: linear-gradient(170deg, rgba(150,150,150,.4),rgba(226,88,34, .4) 75%,rgba(206,38,32,.5) 80%, rgba(10,10,10,.9)),
+              linear-gradient(200deg, rgba(150,150,150,.5),rgba(226,88,34, .6) 75%,rgba(206,38,32,.6) 80%, rgba(10,10,10,.9)), 
               url('dimension/dimension.png')80%;
                 
   background-attachment: fixed;
@@ -54,13 +54,20 @@ button {
   margin: 6px;
   border: 1px solid transparent;
   padding: .5rem 1rem;
-  color: var(--color-keys);
+  color:var(--color-keys-light);
   font-size: var(--font-size-medium);
-  background-color: var(--color-keys-light);
+  background-color: var(--color-keys);
   border-radius: 5px;
+  border: 1px white solid;
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
   transition: var(--transition);
+}
+
+button:not([class]):hover {
+  background-color: rgb(132, 139, 143);
+  box-shadow: 0 0 4px black;
+  border: 1px transparent solid;
 }
 
 .main-container {
@@ -98,7 +105,7 @@ hr {
   width: 65px;
   padding: 10px 1px 0 1px;
   margin-right: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
   color: transparent;
   background: rgba(204,204,204, .5);
   border-radius: 5px;
@@ -143,6 +150,7 @@ hr {
   border-radius: 5px;
   font-size: var(--font-size-medium);
   color: #FFFFFF;
+  border: 1px transparent solid;
 }
 
 .chosen {
@@ -154,11 +162,23 @@ hr {
 }
 
 .btn__reset {
-  padding: 8px;
+  padding: 8px 18px;
   margin: 50px auto;
   background: #FFFFFF;
   border-radius: 5px;
   font-size: var(--font-size-medium);
+  font-weight: bold;
+  transition: all .3s, color .5s;
+}
+
+.btn__reset:hover {
+  color: black;
+  box-shadow: 0 0 8px 3px black;
+}
+.btn__reset[disabled]:hover,
+.btn__reset[disabled] {
+  color: white;
+  box-shadow: none;
 }
 
 /* Overlay */
@@ -174,8 +194,9 @@ hr {
   left: 0;
   right: 0;
   opacity: 1;
+  z-index: 2;
   border-radius: 5px;
-  transition: 2s;
+  transition: opacity 2s, 2s;
 }
 /* fade solution from https://www.impressivewebs.com/animate-display-block-none/ */
 #overlay.hidden {
@@ -185,6 +206,10 @@ hr {
 #overlay.visuallyHidden {
   opacity: 0;
 }
+#overlay {
+  /* background-color: var(--color-start); */
+  background: linear-gradient(rgba(133,133,133,.3),rgba(10,10,10,.9)),url('dimension/dimension.png');
+}
 
 
 
@@ -192,10 +217,6 @@ hr {
   color: #FFF;
 }
 
-#overlay.start {
-  /* background-color: var(--color-start); */
-  background: linear-gradient(rgba(133,133,133,.3),rgba(10,10,10,.9)),url('dimension/dimension.png');
-}
 
 
 
@@ -203,16 +224,16 @@ hr {
   color: var(--color-win);
 }
 
-.win {
-  background: linear-gradient(#5fca66, var(--color-win) 90%);
+#overlay.win {
+  background: linear-gradient(#5fca66, var(--color-win) );
 }
 
 .win a {
   color: var(--color-win);
 }
 
-.lose {
-  background: linear-gradient(#ff7878, var(--color-lose) 90%);
+#overlay.lose {
+  background: linear-gradient(#ff7878, var(--color-lose) );
 }
 
 .lose a {
@@ -231,4 +252,13 @@ hr {
 #scores {
   max-width: 50%;
   margin: 0 auto;
+}
+
+.tries img {
+  transition: .5s;
+  z-index: 1;
+}
+
+.tries .heart {
+  transform: rotateY(2turn) scale(.7);
 }

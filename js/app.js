@@ -3,7 +3,7 @@
  ****************/
 
 const overlay = document.getElementById('overlay');
-const button = document.getElementsByClassName('btn__reset')[0];
+const startButton = document.getElementsByClassName('btn__reset')[0];
 const qwert = document.getElementById('qwerty');
 const keys = document.querySelectorAll('#qwerty button');
 const phraseUl = document.getElementById('phrase');
@@ -19,14 +19,16 @@ let phrase;
 /*****************
  Event Listeners
  ****************/
-button.addEventListener('click', () => {
-  let phrase = getRandomPhraseAsArray(phrases);
-  addPhraseToDisplay(phrase);
-  overlay.classList.add('visuallyHidden');
-  overlay.classList.remove('start', 'lose', 'win');
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-  }, 1000)
+startButton.addEventListener('click', e => {
+  if (!e.target.getAttribute('disabled')) {
+    let phrase = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phrase);
+    overlay.classList.add('visuallyHidden');
+    overlay.classList.remove('start', 'lose', 'win');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+    }, 1000)
+  }
 });
 
 qwerty.addEventListener('click', e => {
@@ -59,7 +61,9 @@ const phrases = [
   "Throw yourself in next time and rid us of your stupidity",
   "What about second breakfast",
   "One ring to rule them all",
-  "I made a promise Mr Frodo"
+  "I made a promise Mr Frodo",
+  "All that glitters is not gold",
+  "The road goes ever on"
 ];
 
 const usedPhrases = [];
@@ -169,11 +173,15 @@ function checkForWin() {
  *  If missed === 5, game over - false
  ***************************************************************/
 function removeLife() {
-  hearts[missed].firstElementChild.setAttribute('src', 'images/lostHeart.png');
+  const heart = hearts[missed];
+  heart.firstElementChild.className = "heart";
+  heart.firstElementChild.setAttribute('src', 'images/lostHeart.png');
+
 
   missed++;
 
   if (missed === 5) {
+    startButton.setAttribute('disabled', true);
     gameOver(false);
   }
 }
@@ -182,30 +190,33 @@ function removeLife() {
  *  Takes in true/false.  true shows win, false shows loss
  **************************************************************/
 function gameOver(outcome) {
-
-
-
   if (outcome) {
     won++;
     overlay.classList.add('win');
-    // overlay.className = "win";
     document.getElementsByClassName('title')[0].innerText = "Woohoo!  You won!";
-
+    startButton.innerText = "Play Again?";
   } else {
-    lost++
+    lost++;
     overlay.classList.add('lose');
-    // overlay.className = "lose";
     document.getElementsByClassName('title')[0].innerText = "Sorry.  You lost";
+    startButton.innerText = "Try Again?";
   }
-  button.innerText = "Try Again";
+
   overlay.classList.remove('hidden');
+
   setTimeout(() => {
     overlay.classList.remove('visuallyHidden');
   }, 20);
   setTimeout(() => {
     reset();
-  }, 1700);
+    startButton.removeAttribute('disabled');
+  }, 2000);
   updateWinLoss();
+
+  // setTimeout(() => {
+
+  //   startButton.removeAttribute('disabled');
+  // }, 4000);
 
 }
 
@@ -217,6 +228,7 @@ function handleInteraction(button) {
     button.className = 'chosen';
     showLetter(button.innerText);
     if (checkForWin()) {
+      startButton.setAttribute('disabled', true);
       gameOver(true);
     }
   } else {
@@ -232,9 +244,9 @@ function reset() {
     key.removeAttribute('class');
   });
   // reset hearts
-  console.log(hearts);
   hearts.forEach(heart => {
     heart.firstElementChild.setAttribute('src', 'images/lifeHeart_new.png');
+    heart.firstElementChild.className = "";
   })
   // reset missed
   missed = 0;
@@ -244,7 +256,7 @@ function reset() {
 
 // Adding Win Loss Tracking;
 let scoresHTML = `
-      <h3>Won: <span id="won">${won}</span></h3><h3>Loss: <span id="lost">${lost}</span></h3>`;
+      <h3>Won: <span id="won">${won}</span></h3><h3>Lost: <span id="lost">${lost}</span></h3>`;
 const scoreboard = document.getElementById('scoreboard');
 const scoreDiv = document.createElement('div');
 scoreDiv.id = "scores";
