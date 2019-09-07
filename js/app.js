@@ -23,8 +23,8 @@ startButton.addEventListener('click', e => {
   if (!e.target.getAttribute('disabled')) {
     let phrase = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(phrase);
-    overlay.classList.add('visuallyHidden');
-    overlay.classList.remove('start', 'lose', 'win');
+    overlay.classList.add('fadeOut');
+    overlay.classList.remove('start', 'lose', 'win', 'fadeIn');
     setTimeout(() => {
       overlay.classList.add('hidden');
     }, 1000)
@@ -202,7 +202,8 @@ function gameOver(outcome) {
     startButton.innerText = "Try Again?";
   }
 
-  overlay.classList.remove('hidden');
+  overlay.classList.remove('fadeOut');
+  overlay.classList.add('fadeIn');
 
   setTimeout(() => {
     overlay.classList.remove('visuallyHidden');
