@@ -222,6 +222,12 @@ function gameOver(outcome) {
 }
 
 
+/*****************************************************************
+ *  Takes in the keyboard button that was clicked and disables it
+ *  Checks to see if key's letter is in phrase
+ *  If true - calls methods to display letter and check for win
+ *  If false - calls remove life method
+ ****************************************************************/
 function handleInteraction(button) {
   button.setAttribute('disabled', true);
 
@@ -238,6 +244,10 @@ function handleInteraction(button) {
   }
 }
 
+/***************************************************************
+ *  Resets all game aspects that have changed so a new game
+ *  can be started.
+ **************************************************************/
 function reset() {
   // reset keys = no class no disabled
   keys.forEach(key => {
@@ -255,7 +265,10 @@ function reset() {
   phraseUl.innerHTML = '<ul></ul>';
 }
 
-// Adding Win Loss Tracking;
+/***************************************************************
+ *  Adds the Won/Loss tracker to the scoreboard div
+ *  Function changes the scoring text after each game is done
+ **************************************************************/
 let scoresHTML = `
       <h3>Won: <span id="won">${won}</span></h3><h3>Lost: <span id="lost">${lost}</span></h3>`;
 const scoreboard = document.getElementById('scoreboard');
