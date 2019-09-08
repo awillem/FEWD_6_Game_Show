@@ -4,7 +4,7 @@
 
 const overlay = document.getElementById('overlay');
 const startButton = document.getElementsByClassName('btn__reset')[0];
-const qwert = document.getElementById('qwerty');
+const qwerty = document.getElementById('qwerty');
 const keys = document.querySelectorAll('#qwerty button');
 const phraseUl = document.getElementById('phrase');
 const hearts = document.querySelectorAll('.tries');
@@ -25,9 +25,9 @@ startButton.addEventListener('click', e => {
     addPhraseToDisplay(phrase);
     overlay.classList.add('fadeOut');
     overlay.classList.remove('start', 'lose', 'win', 'fadeIn');
-    setTimeout(() => {
-      overlay.classList.add('hidden');
-    }, 1000)
+    // setTimeout(() => {
+    //   overlay.classList.add('hidden');
+    // }, 1000)
   }
 });
 
@@ -35,7 +35,7 @@ qwerty.addEventListener('click', e => {
   if (e.target.tagName === 'BUTTON') {
     handleInteraction(e.target);
   }
-})
+});
 
 
 
@@ -113,9 +113,9 @@ function addPhraseToDisplay(phrase) {
 
 
     if (letter !== " ") {
-      word += `<li class="letter">${letter}</li>`
+      word += `<li class="letter">${letter}</li>`;
     } else {
-      word += `<li class="space">${letter}</li>`
+      word += `<li class="space">${letter}</li>`;
     }
     if (index === phrase.length - 1) {
       word += "</div>";
@@ -205,9 +205,9 @@ function gameOver(outcome) {
   overlay.classList.remove('fadeOut');
   overlay.classList.add('fadeIn');
 
-  setTimeout(() => {
-    overlay.classList.remove('visuallyHidden');
-  }, 20);
+  // setTimeout(() => {
+  //   overlay.classList.remove('visuallyHidden');
+  // }, 20);
   setTimeout(() => {
     reset();
     startButton.removeAttribute('disabled');
